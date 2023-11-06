@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require("webpack");
 const path = require("path");
 
@@ -25,6 +27,10 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
   },
   devServer: {
@@ -39,6 +45,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'), }),
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin ({filename: '[name].[contenthash].css' }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };
