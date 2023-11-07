@@ -18,10 +18,6 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
   const fieldWrapper: HTMLElement = htmlElement.querySelector(".field-wrapper")!;
   const button: HTMLButtonElement = htmlElement.querySelector("button")! as HTMLButtonElement;
 
-  // Теперь не нужно проверять на null, потому что "!" утверждает, что элемент существует.
-  // Если элемент не будет найден, "!" может привести к ошибке во время выполнения.
-  // Так что используйте "!" только если вы уверены, что элемент всегда будет в DOM.
-
   let field: number[][] = Array.from({ length: sizeY }, () =>
     Array.from({ length: sizeX }, () => 0)
   );
