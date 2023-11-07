@@ -80,3 +80,15 @@ input {
   padding: 20px;
   width: 180px;
 }
+
+.cell.alive {
+  background-color: red; /* Черный цвет для живых клеток */
+}
+
+.cell.doomed {
+  background-color: black; /* Синий цвет для обреченных клеток */
+}
+
+.cell.dead {
+  background-color: #FFFFFF; /* Белый цвет для мертвых клеток */
+}

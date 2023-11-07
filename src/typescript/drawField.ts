@@ -1,26 +1,26 @@
 /* eslint-disable no-param-reassign */
-/**
- * отрисовка поля
- * @param field {number[][]} - состояние поля
- * @param htmlElement {HTMLElement} - элемент, в котором будет отрисовано поле
- * @param onCellClick {(x: number, y: number) => void}
- * @returns void
- */
+import { getNumOfAliveNeighbours } from "./getNumOfAliveNeighbours";
+import { getNewCellState } from "./getNewCellState";
+
 export function drawField(
   htmlElement: HTMLElement,
   field: number[][],
   onCellClick: (x: number, y: number) => void,
 ): void {
   const rowIterator = (row: number[], rowIndex: number): string =>
-    `<tr>${row
-      .map((cell, columnIndex) => {
-        if (cell === 1) {
-          return `<td 
-          data-x="${columnIndex}"
-          data-y="${rowIndex}"
-          class="cell alive" 
-          style="background-color:#FA58D0; height:10px; width:10px;"></td>`;
-        }
+  `<tr>${row
+    .map((cell, columnIndex) => {
+      const numOfAliveNeighbours = getNumOfAliveNeighbours(columnIndex, rowIndex, field);
+      const willDie = cell === 1 && getNewCellState(cell, numOfAliveNeighbours) === 0;
+
+      if (cell === 1) {
+        const cellClass = willDie ? "cell doomed" : "cell alive";
+        return `<td 
+        data-x="${columnIndex}"
+        data-y="${rowIndex}"
+        class="${cellClass}" 
+        style="height:10px; width:10px;"></td>`;
+      }
         return `<td 
         data-x="${columnIndex}"
         data-y="${rowIndex}"
