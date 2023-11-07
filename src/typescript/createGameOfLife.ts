@@ -3,7 +3,11 @@ import { drawField } from "./drawField";
 import { getNextState } from "./getNextState";
 import { isAnyoneAlive } from "./isAnyoneAlive";
 
-export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTMLElement): void {
+export function createGameOfLife(
+  sizeX: number,
+  sizeY: number,
+  htmlElement: HTMLElement,
+): void {
   let gameIsRunning: boolean = false;
   let timer: number | undefined;
 
@@ -21,15 +25,26 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     </main>
   `;
 
-  const speedRange: HTMLInputElement = htmlElement.querySelector("#speedRange")! as HTMLInputElement;
-  const fieldWrapper: HTMLElement = htmlElement.querySelector(".field-wrapper")!;
-  const buttonStart: HTMLButtonElement = htmlElement.querySelector("#start")! as HTMLButtonElement;
-  const buttonResize: HTMLButtonElement = htmlElement.querySelector("#resize")! as HTMLButtonElement;
-  const inputSizeX: HTMLInputElement = htmlElement.querySelector("#sizeX")! as HTMLInputElement;
-  const inputSizeY: HTMLInputElement = htmlElement.querySelector("#sizeY")! as HTMLInputElement;
+  const speedRange: HTMLInputElement = htmlElement.querySelector(
+    "#speedRange",
+  )! as HTMLInputElement;
+  const fieldWrapper: HTMLElement =
+    htmlElement.querySelector(".field-wrapper")!;
+  const buttonStart: HTMLButtonElement = htmlElement.querySelector(
+    "#start",
+  )! as HTMLButtonElement;
+  const buttonResize: HTMLButtonElement = htmlElement.querySelector(
+    "#resize",
+  )! as HTMLButtonElement;
+  const inputSizeX: HTMLInputElement = htmlElement.querySelector(
+    "#sizeX",
+  )! as HTMLInputElement;
+  const inputSizeY: HTMLInputElement = htmlElement.querySelector(
+    "#sizeY",
+  )! as HTMLInputElement;
 
   let field: number[][] = Array.from({ length: sizeY }, () =>
-    Array.from({ length: sizeX }, () => 0)
+    Array.from({ length: sizeX }, () => 0),
   );
 
   const cellClickHandler = (x: number, y: number): void => {
@@ -69,7 +84,9 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
   const resizeField = () => {
     sizeX = parseInt(inputSizeX.value, 10);
     sizeY = parseInt(inputSizeY.value, 10);
-    field = Array.from({ length: sizeY }, () => Array.from({ length: sizeX }, () => 0));
+    field = Array.from({ length: sizeY }, () =>
+      Array.from({ length: sizeX }, () => 0),
+    );
     drawField(fieldWrapper, field, cellClickHandler);
     if (gameIsRunning) {
       stopGame();
@@ -77,7 +94,7 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     }
   };
 
-  speedRange.addEventListener('input', () => {
+  speedRange.addEventListener("input", () => {
     if (gameIsRunning && timer) {
       clearInterval(timer);
       timer = window.setInterval(() => {
@@ -102,7 +119,7 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     if (!gameIsRunning) {
       resizeField();
     } else {
-      alert('Остановите игру перед изменением размера поля.');
+      alert("Остановите игру перед изменением размера поля.");
     }
   });
 }

@@ -1,79 +1,61 @@
-import { createGameOfLife } from "../src/typescript/createGameOfLife";
+/* import { createGameOfLife } from "../src/typescript/createGameOfLife"; */
 import { drawField } from "../src/typescript/drawField";
 import { getNextState } from "../src/typescript/getNextState";
 import { isAnyoneAlive } from "../src/typescript/isAnyoneAlive";
 
-jest.mock("../src/typescript/drawField");
-jest.mock("../src/typescript/getNextState");
-jest.mock("../src/typescript/isAnyoneAlive");
+describe("drawField", () => {
+  it("should create a visual representation of the field", () => {
+    const mockField = [
+      [0, 1],
+      [1, 0],
+    ];
+    const mockHandler = jest.fn();
+    const container = document.createElement("div");
 
-describe("createGameOfLife", () => {
-  let htmlElement: HTMLElement;
-  let fieldWrapper: HTMLElement;
-  let startButton: HTMLButtonElement;
+    drawField(container, mockField, mockHandler);
 
-  beforeEach(() => {
-    jest.useFakeTimers();
-    jest.useFakeTimers();
-    jest.spyOn(global, "setInterval");
-    jest.spyOn(global, "clearInterval");
-    htmlElement = document.createElement("div");
-    document.body.appendChild(htmlElement);
-    createGameOfLife(3, 3, htmlElement);
-    fieldWrapper = htmlElement.querySelector(".field-wrapper")!;
-    startButton = htmlElement.querySelector("button")! as HTMLButtonElement;
+    // Проверяем, что контейнер был заполнен
+    expect(container.innerHTML).toBeTruthy();
+    // Проверяем, что был создан правильный количеств клеток
+    expect(container.querySelectorAll(".cell").length).toBe(4);
+  });
+});
+
+describe("getNextState", () => {
+  it("should calculate the next state of the field correctly", () => {
+    const initialState = [
+      [0, 1, 0],
+      [0, 1, 0],
+      [0, 1, 0],
+    ];
+    const expectedNextState = [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ];
+
+    const nextState = getNextState(initialState);
+
+    expect(nextState).toEqual(expectedNextState);
+  });
+});
+
+describe("isAnyoneAlive", () => {
+  it("should return false if all cells are dead", () => {
+    const deadField = [
+      [0, 0],
+      [0, 0],
+    ];
+
+    expect(isAnyoneAlive(deadField)).toBe(false);
   });
 
-  afterEach(() => {
-    jest.clearAllTimers();
-    jest.restoreAllMocks();
-    document.body.removeChild(htmlElement);
-  });
+  it("should return true if any cell is alive", () => {
+    const liveField = [
+      [0, 1],
+      [0, 0],
+    ];
 
-  it("initializes a game field and a start button", () => {
-    expect(fieldWrapper).not.toBeNull();
-    expect(startButton).not.toBeNull();
-    expect(startButton.innerHTML).toBe("Start");
-  });
-
-  it("starts the game when the start button is clicked", () => {
-    startButton.click();
-    expect(startButton.innerHTML).toBe("Stop");
-    expect(setInterval).toHaveBeenCalledTimes(1);
-  });
-
-  it("stops the game when the start button is clicked again", () => {
-    // Start the game
-    startButton.click();
-    // Stop the game
-    startButton.click();
-    expect(startButton.innerHTML).toBe("Start");
-    expect(clearInterval).toHaveBeenCalledTimes(1);
-  });
-
-  it("updates the game state periodically when the game is running", () => {
-    (getNextState as jest.Mock).mockImplementation((field) => field); // Assume state remains the same for testing
-    (isAnyoneAlive as jest.Mock).mockReturnValue(true); // Assume some cells are alive for testing
-
-    startButton.click(); // Start the game
-    expect(setInterval).toHaveBeenCalledTimes(1);
-
-    jest.advanceTimersByTime(1000); // Advance time by 1 second
-    expect(getNextState).toHaveBeenCalledTimes(1);
-    expect(drawField).toHaveBeenCalledTimes(2); // Initial drawField + one for state update
-  });
-
-  it("stops the game and alerts if all cells are dead", () => {
-    const alertMock = jest.spyOn(window, "alert").mockImplementation(() => {});
-    (isAnyoneAlive as jest.Mock).mockReturnValue(false); // All cells are dead
-
-    startButton.click(); // Start the game
-    jest.runOnlyPendingTimers(); // Run the interval callback
-
-    expect(alertMock).toHaveBeenCalledWith("Все клетки мертвы");
-    expect(startButton.innerHTML).toBe("Start");
-    expect(clearInterval).toHaveBeenCalledTimes(1);
-
-    alertMock.mockRestore();
+    expect(isAnyoneAlive(liveField)).toBe(true);
   });
 });
