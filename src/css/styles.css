@@ -15,6 +15,27 @@ body {
   margin: 0;
 }
 
+header {
+  width: 100%;
+  position: absolute;
+  margin-top: -900px; 
+  padding: 20px 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); 
+  color: white;
+}
+
+header h1 {
+font-size: 40px;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+  
+
 .field-wrapper {
   margin: 10px 50px;
 }
@@ -91,4 +112,11 @@ input {
 
 .cell.dead {
   background-color: #FFFFFF; /* Белый цвет для мертвых клеток */
+}
+
+#speed-control {
+  color: gold;
+  margin-top: 20px;
+  text-shadow: 8px 8px 8px rgba(0, 0, 0, 0.884);
+  background: rgba(0, 0, 0, 0.5);  
 }

@@ -8,15 +8,17 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
   let timer: number | undefined;
 
   htmlElement.innerHTML = `
-    <div id="speed-control">
-    <label for="speedRange" style="display: block; font-size: 20px; text-align: center;">Скорость игры</label>
-    <input type="range" id="speedRange" min="1" max="1000" value="30" style="width: 50%;" />
-    </div>
+  <main class=main-content">
     <button id="resize">изменить размер</button>
     <input type="number" id="sizeX" placeholder="Кол-во колонок" value="${sizeX}" />
     <input type="number" id="sizeY" placeholder="Кол-во строк" value="${sizeY}" />
     <div class="field-wrapper"></div>
     <button id="start">Старт</button>
+    <div id="speed-control">
+    <label for="speedRange" style="display: block; font-size: 20px; text-align: center;">Скорость игры</label>
+    <input type="range" id="speedRange" min="1" max="1000" value="30" style="width: 50%;" />
+    </div>
+    </main>
   `;
 
   const speedRange: HTMLInputElement = htmlElement.querySelector("#speedRange")! as HTMLInputElement;
