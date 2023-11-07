@@ -7,7 +7,11 @@ import { getCellState } from "./getCellState";
  * @param field - состояние поля
  * @returns число живых соседей
  */
-export function getNumOfAliveNeighbours(column: number, row: number, field: number[][]): number {
+export function getNumOfAliveNeighbours(
+  column: number,
+  row: number,
+  field: number[][],
+): number {
   let neighbours = 0;
 
   // Проверяем верхнюю и нижнюю строку относительно выбранной клетки

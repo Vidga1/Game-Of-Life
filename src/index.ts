@@ -1,6 +1,6 @@
 import { createGameOfLife } from "./typescript/createGameOfLife";
 
-import './css/styles.css'
+import "./css/styles.css";
 
 const gameWrapper1: HTMLDivElement = document.createElement("div");
 const gameWrapper2: HTMLDivElement = document.createElement("div");

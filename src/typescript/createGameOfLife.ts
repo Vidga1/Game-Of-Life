@@ -3,20 +3,23 @@ import { drawField } from "./drawField";
 import { getNextState } from "./getNextState";
 import { isAnyoneAlive } from "./isAnyoneAlive";
 
-/**
- * Создание игры Жизнь
- * @param sizeX {number} - число колонок
- * @param sizeY {number} - число строк
- * @param htmlElement {HTMLElement} - элемент, в котором будет отрисована игра
- * @returns void
- */
 export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTMLElement): void {
   let gameIsRunning: boolean = false;
   let timer: number | undefined;
 
-  htmlElement.innerHTML = `<div class="field-wrapper"></div><button>Start</button>`;
+  htmlElement.innerHTML = `
+    <button id="resize">RESIZE</button>
+    <input type="number" id="sizeX" placeholder="Кол-во колонок" value="${sizeX}" />
+    <input type="number" id="sizeY" placeholder="Кол-во строк" value="${sizeY}" />
+    <div class="field-wrapper"></div>
+    <button id="start">START</button>
+  `;
+
   const fieldWrapper: HTMLElement = htmlElement.querySelector(".field-wrapper")!;
-  const button: HTMLButtonElement = htmlElement.querySelector("button")! as HTMLButtonElement;
+  const buttonStart: HTMLButtonElement = htmlElement.querySelector("#start")! as HTMLButtonElement;
+  const buttonResize: HTMLButtonElement = htmlElement.querySelector("#resize")! as HTMLButtonElement;
+  const inputSizeX: HTMLInputElement = htmlElement.querySelector("#sizeX")! as HTMLInputElement;
+  const inputSizeY: HTMLInputElement = htmlElement.querySelector("#sizeY")! as HTMLInputElement;
 
   let field: number[][] = Array.from({ length: sizeY }, () =>
     Array.from({ length: sizeX }, () => 0)
@@ -27,11 +30,18 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     drawField(fieldWrapper, field, cellClickHandler);
   };
 
+  const resizeField = () => {
+    sizeX = parseInt(inputSizeX.value, 10);
+    sizeY = parseInt(inputSizeY.value, 10);
+    field = Array.from({ length: sizeY }, () => Array.from({ length: sizeX }, () => 0));
+    drawField(fieldWrapper, field, cellClickHandler);
+  };
+
   drawField(fieldWrapper, field, cellClickHandler);
 
   function stopGame(): void {
     gameIsRunning = false;
-    button.innerHTML = "Start";
+    buttonStart.innerHTML = "Start";
     if (timer) {
       clearInterval(timer);
     }
@@ -39,7 +49,7 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
 
   function startGame(): void {
     gameIsRunning = true;
-    button.innerHTML = "Stop";
+    buttonStart.innerHTML = "Stop";
     timer = window.setInterval(() => {
       field = getNextState(field);
       drawField(fieldWrapper, field, cellClickHandler);
@@ -50,11 +60,19 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     }, 1000);
   }
 
-  button.addEventListener("click", () => {
+  buttonStart.addEventListener("click", () => {
     if (!gameIsRunning) {
       startGame();
     } else {
       stopGame();
+    }
+  });
+
+  buttonResize.addEventListener("click", () => {
+    if (!gameIsRunning) {
+      resizeField();
+    } else {
+      alert('Остановите игру перед изменением размера поля.');
     }
   });
 }
