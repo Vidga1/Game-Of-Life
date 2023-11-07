@@ -12,11 +12,11 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
     <label for="speedRange" style="display: block; font-size: 20px; text-align: center;">Скорость игры</label>
     <input type="range" id="speedRange" min="1" max="1000" value="30" style="width: 50%;" />
     </div>
-    <button id="resize">RESIZE</button>
+    <button id="resize">изменить размер</button>
     <input type="number" id="sizeX" placeholder="Кол-во колонок" value="${sizeX}" />
     <input type="number" id="sizeY" placeholder="Кол-во строк" value="${sizeY}" />
     <div class="field-wrapper"></div>
-    <button id="start">START</button>
+    <button id="start">Старт</button>
   `;
 
   const speedRange: HTMLInputElement = htmlElement.querySelector("#speedRange")! as HTMLInputElement;
@@ -39,7 +39,7 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
 
   function stopGame(): void {
     gameIsRunning = false;
-    buttonStart.innerHTML = "Start";
+    buttonStart.innerHTML = "Старт";
     if (timer) {
       clearInterval(timer);
     }
@@ -53,7 +53,7 @@ export function createGameOfLife(sizeX: number, sizeY: number, htmlElement: HTML
 
   function startGame(): void {
     gameIsRunning = true;
-    buttonStart.innerHTML = "Stop";
+    buttonStart.innerHTML = "Стоп";
     timer = window.setInterval(() => {
       field = getNextState(field);
       drawField(fieldWrapper, field, cellClickHandler);
