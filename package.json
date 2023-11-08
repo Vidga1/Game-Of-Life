@@ -8,7 +8,8 @@
     "lint": "prettier --check . && eslint src --ignore-path .gitignore",
     "lint:fix": "prettier --write . && eslint src --fix --ignore-path .gitignore",
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -52,17 +53,10 @@
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.15.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "eslint --cache --fix"
-    ],
-    "*.{css,md}": "prettier --write"
+    "*.js": "eslint --fix",
+    "*.{css,md}": "prettier --write",
+    "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
