@@ -82,12 +82,21 @@ export function createGameOfLife(
   }
 
   const resizeField = () => {
-    sizeX = parseInt(inputSizeX.value, 10);
-    sizeY = parseInt(inputSizeY.value, 10);
+    const newSizeX = parseInt(inputSizeX.value, 10);
+    const newSizeY = parseInt(inputSizeY.value, 10);
+
+    if (newSizeX > 30 || newSizeY > 30) {
+      alert("Максимальный размер поля - 30 на 30 клеток.");
+      return;
+    }
+
+    sizeX = newSizeX;
+    sizeY = newSizeY;
     field = Array.from({ length: sizeY }, () =>
       Array.from({ length: sizeX }, () => 0),
     );
     drawField(fieldWrapper, field, cellClickHandler);
+
     if (gameIsRunning) {
       stopGame();
       startGame();
