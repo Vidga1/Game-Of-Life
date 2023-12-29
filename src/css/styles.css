@@ -1,0 +1,121 @@
+body {
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  background-image: url("https://w.forfun.com/fetch/f4/f42195e9b0a57ebd2d70ae1b965d326a.jpeg");
+  display: flex;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  position: absolute;
+  margin-top: -900px;
+  padding: 20px 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+header h1 {
+  font-size: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.field-wrapper {
+  margin: 10px 50px;
+}
+
+.field-wrapper + .field-wrapper {
+  margin-top: 50px;
+}
+
+.field-wrapper table {
+  width: 500px;
+  height: 500px;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.field-wrapper td {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.field-wrapper td.live {
+  background-color: #4caf50;
+}
+
+.field-wrapper td:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+button {
+  padding: 20px 45px;
+  background-image: linear-gradient(to right, #1c6091, #1faf9c);
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+
+button:hover {
+  background-image: linear-gradient(to right, #7ce0d3, #6db9ef);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  position: relative;
+  width: 140px;
+  left: 150px;
+  height: 30px;
+  align-items: center;
+}
+
+#resize {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 20px;
+  width: 180px;
+}
+
+.cell.alive {
+  background-color: red; /* Черный цвет для живых клеток */
+}
+
+.cell.doomed {
+  background-color: black; /* Синий цвет для обреченных клеток */
+}
+
+.cell.dead {
+  background-color: #ffffff; /* Белый цвет для мертвых клеток */
+}
+
+#speed-control {
+  color: gold;
+  margin-top: 20px;
+  text-shadow: 8px 8px 8px rgba(0, 0, 0, 0.884);
+  background: rgba(0, 0, 0, 0.5);
+}
