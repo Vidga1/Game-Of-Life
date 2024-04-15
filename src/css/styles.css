@@ -1,7 +1,7 @@
 body {
   font-family: "Arial", sans-serif;
   padding: 20px;
-  background-image: url("https://w.forfun.com/fetch/f4/f42195e9b0a57ebd2d70ae1b965d326a.jpeg");
+  background: linear-gradient(to right, #2c3e50, #e74c3c);
   display: flex;
   background-size: cover;
   background-repeat: no-repeat;
@@ -53,7 +53,7 @@ header p {
 .field-wrapper td {
   width: 20px;
   height: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #070707;
   text-align: center;
 }
 
